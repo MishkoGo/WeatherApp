@@ -3,7 +3,6 @@ description: A new Flutter project.
 
 publish_to: 'none'
 
-
 version: 1.0.0+1
 
 environment:
@@ -13,10 +12,22 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.2
-  flutter_bloc: ^8.0.1
-  http: ^0.13.4
+#  cupertino_icons: ^1.0.2
+#  flutter_bloc: ^8.0.1
+#  http: ^0.13.4
+#  geolocator: ^7.7.1
+#  connectivity: ^3.0.6
+#  animations: ^2.0.1
+#  dcdg: ^4.0.1
+#  intl: ^0.17.0
+#  share: ^2.0.4
 
+  cupertino_icons: ^1.0.2
+  flutter_bloc: ^7.3.3
+  connectivity: ^3.0.6
+  http: ^0.13.4
+  geolocator: ^7.7.1
+  dcdg: ^4.0.0
 
 dev_dependencies:
   flutter_test:

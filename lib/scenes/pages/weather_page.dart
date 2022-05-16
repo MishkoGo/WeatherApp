@@ -1,74 +1,68 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_app/core/repository/weather_repository.dart';
+import 'package:weather_app/models/weather_current.dart';
+import 'package:weather_app/scenes/widgets/today_details_widget.dart';
+import 'package:weather_app/scenes/widgets/week_weather_data.dart';
+import '../../bloc/weather_bloc/weather_bloc.dart';
 import '../../routes.dart';
+import '../../service.dart';
+import '../widgets/today_data_widget.dart';
 
-class WeatherPage extends StatelessWidget {
-  const WeatherPage({Key? key}) : super(key: key);
+class WeatherPage extends StatefulWidget {
+
+  const WeatherPage({Key? key,}) : super(key: key);
+  @override
+  State<WeatherPage> createState() => _WeatherPageState();
+}
+
+class _WeatherPageState extends State<WeatherPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color.fromRGBO(124, 187, 231, 1),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-          child: Column(
-            children: [
-              Container(
-                width: 350,
-                alignment: Alignment.topLeft,
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Text('Minsk/Belarus', style: TextStyle(color: Colors.white, fontSize: 25),),
-                        SizedBox(width: 110,),
-                        TextButton(
-                            onPressed: (){
-                              Navigator.of(context).pushNamed(AppRoutes.searchRoute);
-                            },
-                            child: Icon(Icons.search, color: Colors.white, size: 25,),
+      return Scaffold(
+        backgroundColor: Color.fromRGBO(124, 187, 231, 1),
+        body: BlocBuilder<WeatherBloc, WeatherState>(
+          builder: (context, state) {
+            if (state is WeatherLoadedState)
+              {
+               return SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(25.0),
+                    child: Column(
+                      children: <Widget>[
+                        TodayDataWidget(
+                          currentWeather: state.weatherData,
                         ),
+                        SizedBox(height: 5,),
+                        TodayDetailsWidget(),
+                        SizedBox(height: 15,),
+                        WeekWeatherData(),
                       ],
                     ),
-                    SizedBox(height: 3,),
-                    Row(
-                      children: [
-                        Text('Friday, May 13, 13.00', style: TextStyle(color: Colors.white, fontSize: 15),),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Image.asset("assets/sun.png", width: 50, height: 50,),
-                        SizedBox(width: 10,),
-                        Text('26', style: TextStyle(color: Colors.white,fontSize: 60, fontWeight: FontWeight.w600),),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 5,),
-              Container(
-                width: 350,
-                height: 150,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-              ),
-              SizedBox(height: 15,),
-              Container(
-                width: 350,
-                height: 360,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-              ),
-            ],
-          ),
+                  ),
+                );
+              } else {
+              return Center (
+                child: Text('data loading'),
+              );
+            }
+          },
         ),
-      ),
-    );
+      );
+    }
+    // return BlocBuilder<CurrentWeatherDataBloc, CurrentWeatherState>(
+    //     builder: (context, state) {
+    //       return AnimatedSwitcher(
+    //           duration: const Duration(milliseconds: 500),
+    //           child: state is CurrentWeatherDataState
+    //               ? buildTodayScreenLayout(state)
+    //               : Container(child:Text('ff')));
+    //     })
+
+  @override
+  Future<void> didChangeDependencies() async {
+    super.didChangeDependencies();
+    await Service.currentWeatherResponseTransformer(context);
   }
 }
