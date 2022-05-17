@@ -18,4 +18,19 @@ class WeatherRepository {
       throw Exception("HTTP: ${response.statusCode}");
     }
   }
+
+  static Future<Response> listHourlyWeather(double lat,
+      double lon) async {
+    final Uri url = Uri.parse(
+        'https://api.openweathermap.org/data/2.5/weather?lat=${lat
+            .toString()}&lon=${lon.toString()}&appid=$apiKey&units=metric');
+    final response = await http.Client().get(url);
+
+    if (response.statusCode == 200) {
+      return response;
+    }
+    else {
+      throw Exception("HTTP: ${response.statusCode}");
+    }
+  }
 }

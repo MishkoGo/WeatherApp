@@ -35,9 +35,12 @@ class _WeatherPageState extends State<WeatherPage> {
                           currentWeather: state.weatherData,
                         ),
                         SizedBox(height: 5,),
-                        TodayDetailsWidget(),
+                        TodayDetailsWidget(
+                          currentWeather: state.weatherData,),
                         SizedBox(height: 15,),
-                        WeekWeatherData(),
+                        WeekWeatherData(
+                          currentWeather: state.weatherData,
+                        ),
                       ],
                     ),
                   ),
@@ -51,14 +54,6 @@ class _WeatherPageState extends State<WeatherPage> {
         ),
       );
     }
-    // return BlocBuilder<CurrentWeatherDataBloc, CurrentWeatherState>(
-    //     builder: (context, state) {
-    //       return AnimatedSwitcher(
-    //           duration: const Duration(milliseconds: 500),
-    //           child: state is CurrentWeatherDataState
-    //               ? buildTodayScreenLayout(state)
-    //               : Container(child:Text('ff')));
-    //     })
 
   @override
   Future<void> didChangeDependencies() async {

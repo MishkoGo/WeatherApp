@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/models/weather_current.dart';
-
+import 'package:intl/intl.dart';
 import '../../routes.dart';
 
 class TodayDataWidget extends StatelessWidget {
@@ -19,9 +19,9 @@ class TodayDataWidget extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Text(currentWeather.name, style: TextStyle(
+                  Text(currentWeather.name + "/" + currentWeather.sys, style: TextStyle(
                       color: Colors.white, fontSize: 25),),
-                  SizedBox(width: 110,),
+                  SizedBox(width: 70,),
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pushNamed(
@@ -35,8 +35,8 @@ class TodayDataWidget extends StatelessWidget {
               SizedBox(height: 3,),
               Row(
                 children: [
-                  Text('Friday, May 13, 13.00', style: TextStyle(
-                      color: Colors.black, fontSize: 15),),
+                  Text(DateFormat('EEE, MMM d, HH:mm').format(DateTime.fromMillisecondsSinceEpoch(currentWeather.dt * 1000)), style: TextStyle(
+                      color: Colors.white, fontSize: 15),),
                 ],
               ),
               Row(
