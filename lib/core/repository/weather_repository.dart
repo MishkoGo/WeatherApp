@@ -1,36 +1,36 @@
-import 'package:http/http.dart';
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
+import '../../models/weather_data.dart';
 
-class WeatherRepository {
- static const String apiKey = "e9eda5302835b0633b8afdd5e6dfcc55";
+class WeatherService {
+  static String _apiKey = "e9eda5302835b0633b8afdd5e6dfcc55";
 
-  static Future<Response> listCurrentWeather(double lat,
-      double lon) async {
+  static Future<WeatherData> fetchCurrentWeather({query, String lat = "", String lon =""}) async {
     final Uri url = Uri.parse(
-        'https://api.openweathermap.org/data/2.5/weather?lat=${lat
-            .toString()}&lon=${lon.toString()}&appid=$apiKey&units=metric');
-    final response = await http.Client().get(url);
+        'https://api.openweathermap.org/data/2.5/weather?q=$query&lat=$lat&lon=$lon&appid=$_apiKey&units=metric');
+    final response = await http.post(url);
 
     if (response.statusCode == 200) {
-      return response;
-    }
-    else {
-      throw Exception("HTTP: ${response.statusCode}");
+      return WeatherData.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load weather');
     }
   }
-
-  static Future<Response> listHourlyWeather(double lat,
-      double lon) async {
+  static Future<List<WeatherData>> fetchHourlyWeather({String query, String lat = "", String lon =""}) async {
     final Uri url = Uri.parse(
-        'https://api.openweathermap.org/data/2.5/weather?lat=${lat
-            .toString()}&lon=${lon.toString()}&appid=$apiKey&units=metric');
-    final response = await http.Client().get(url);
+        'https://api.openweathermap.org/data/2.5/forecast?q=$query&lat=$lat&lon=$lon&appid=$_apiKey&units=metric');
+    final response = await http.post(url);
 
     if (response.statusCode == 200) {
-      return response;
-    }
-    else {
-      throw Exception("HTTP: ${response.statusCode}");
+      final jsonData = json.decode(response.body);
+      final List<WeatherData> data = (jsonData['list'] as List<dynamic>)
+          .map((item) {
+        return WeatherData.fromJson(item);
+      }).toList();
+      return data;
+    } else {
+      throw Exception('Failed to load weather');
     }
   }
 }

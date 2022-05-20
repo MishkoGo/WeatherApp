@@ -1,14 +1,23 @@
 part of 'weather_bloc.dart';
 
-abstract class WeatherState {}
+abstract class WeatherState {
+  const WeatherState();
 
-class WeatherInitialState extends WeatherState{}
+  @override
+  List<Object> get props => [];
+}
+
+class WeatherInitial extends WeatherState {}
 
 class WeatherLoadingState extends WeatherState {}
 
-class WeatherLoadedState extends WeatherState{
- final WeatherData weatherData;
+class WeatherLoadSuccess extends WeatherState {
+  final WeatherData weather;
+  final List<WeatherData> hourlyWeather;
 
- WeatherLoadedState(this.weatherData);
+  const WeatherLoadSuccess(
+      { @required this.weather, @required this.hourlyWeather});
+
+  @override
+  List<Object> get props => [weather, hourlyWeather];
 }
-

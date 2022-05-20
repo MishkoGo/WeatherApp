@@ -1,9 +1,24 @@
 part of 'weather_bloc.dart';
 
-class WeatherEvent {}
+abstract class WeatherEvent {
+  const WeatherEvent([List props = const []]);
+}
 
-class WeatherUpdateEvent extends WeatherEvent{
-  late WeatherData weatherData;
+class WeatherCurrentPositionRequested extends WeatherEvent {
+  const WeatherCurrentPositionRequested() : super();
 
-  WeatherUpdateEvent(this.weatherData);
+  @override
+  List<Object> get props => [];
+}
+
+class WeatherRequested extends WeatherEvent {
+  final String city;
+  final String lat;
+  final String lon;
+
+  const WeatherRequested({this.city = "", this.lat = "", this.lon = ""})
+      : super();
+
+  @override
+  List<Object> get props => [city, lat, lon];
 }
