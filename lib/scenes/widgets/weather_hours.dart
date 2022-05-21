@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../../models/weather_data.dart';
-import 'weather_card.dart';
+import 'weather_card_hours.dart';
 
 class HourlyWeather extends StatelessWidget {
-  final List<WeatherData> hourlyWeather;
+  final List<WeatherData> listDataWeather;
 
   const HourlyWeather({
-    this.hourlyWeather
+    this.listDataWeather
   }) : super();
 
   @override
@@ -27,9 +27,9 @@ class HourlyWeather extends StatelessWidget {
               itemBuilder: (context, i) {
                 return  WeatherCard(
                   title:
-                  '${hourlyWeather[i].time.hour}:${hourlyWeather[i].time.minute}0',
-                  temperature: hourlyWeather[i].temp.toInt(),
-                  iconCode: hourlyWeather[i].icon,
+                  '${listDataWeather[i].time.hour}:${listDataWeather[i].time.minute}0',
+                  temperature: listDataWeather[i].temp.toInt(),
+                  iconCode: listDataWeather[i].icon,
                   temperatureFontSize: 20,
                 );
               }),

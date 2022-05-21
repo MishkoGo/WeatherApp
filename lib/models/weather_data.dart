@@ -4,8 +4,12 @@ class WeatherData {
   final double temp;
   final DateTime time;
   final String sys;
+  final double wind;
+  final int humidity;
 
   WeatherData({
+     this.humidity,
+     this.wind,
      this.temp,
      this.icon,
      this.name,
@@ -20,6 +24,8 @@ class WeatherData {
       temp: json['main']['temp'].toDouble(),
       time: DateTime.fromMillisecondsSinceEpoch(json['dt'] * 1000),
       sys: json['sys']['country'],
+      wind: json['wind']['speed'].toDouble(),
+      humidity: json['main']['humidity'],
     );
   }
 }

@@ -29,7 +29,6 @@ class WeatherCard extends StatelessWidget {
         ),
       );
     }
-
     return Container(
       child: Row(
         children: [
