@@ -19,6 +19,9 @@ dependencies:
   geolocator: ^7.7.1
   dcdg: ^4.0.0
   intl: ^0.17.0
+  firebase_core: ^1.17.0
+  flutter_local_notifications:
+  workmanager:
 
 
 dev_dependencies:
