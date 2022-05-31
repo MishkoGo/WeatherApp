@@ -17,7 +17,7 @@ class WeatherService {
       throw Exception('Failed to load weather');
     }
   }
-  static Future<List<WeatherData>> fetchHourlyWeather({String query, String lat = "", String lon =""}) async {
+  static Future<List<WeatherData>> fetchHourlyWeather({query, String lat = "", String lon =""}) async {
     final Uri url = Uri.parse(
         'https://api.openweathermap.org/data/2.5/forecast?q=$query&lat=$lat&lon=$lon&appid=$_apiKey&units=metric');
     final response = await http.post(url);

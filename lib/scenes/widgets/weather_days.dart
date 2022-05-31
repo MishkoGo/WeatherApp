@@ -19,19 +19,22 @@ class DaysWeather extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
         child: ListView.builder(
             scrollDirection: Axis.vertical,
             itemCount: 9,
             itemBuilder: (context, i) {
-              return WeatherCardDays(
-                title:
-                '${DateFormat('E').format((listDataWeather[i].time))}',
-                wind: listDataWeather[i].wind.toInt(),
-                humidity: listDataWeather[i].humidity.toInt(),
-                temperature: listDataWeather[i].temp.toInt(),
-                iconCode: listDataWeather[i].icon,
-                temperatureFontSize: 20,
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: WeatherCardDays(
+                  title:
+                  '${DateFormat('EEE').format((listDataWeather[i].time))}:\n${listDataWeather[i].time.hour}:${listDataWeather[i].time.minute}0',
+                  wind: listDataWeather[i].wind.toInt(),
+                  humidity: listDataWeather[i].humidity.toInt(),
+                  temperature: listDataWeather[i].temp.toInt(),
+                  iconCode: listDataWeather[i].icon,
+                  temperatureFontSize: 20,
+                ),
               );
             }
         ),

@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import '../../models/weather_data.dart';
-import '../widgets/weather_card_hours.dart';
 import '../widgets/weather_days.dart';
-import '../widgets/weather_hours.dart';
 
-class MainScreenWrapper extends StatelessWidget {
+class MainScreenWrapper extends StatefulWidget {
   final WeatherData weather;
   final List<WeatherData> hourlyWeather;
 
@@ -14,6 +12,11 @@ class MainScreenWrapper extends StatelessWidget {
      this.weather,
      this.hourlyWeather})
       : super();
+  @override
+  State<MainScreenWrapper> createState() => _MainScreenWrapperState();
+}
+
+class _MainScreenWrapperState extends State<MainScreenWrapper> {
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +30,7 @@ class MainScreenWrapper extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text(weather.name + "/" + weather.sys, style: TextStyle(
+                    Text(widget.weather.name + "/" + widget.weather.sys, style: TextStyle(
                         color: Colors.white, fontSize: 25),),
                     SizedBox(width: 70,),
                   ],
@@ -35,26 +38,25 @@ class MainScreenWrapper extends StatelessWidget {
                 SizedBox(height: 3,),
                 Row(
                   children: [
-                    Text(DateFormat('EEE, MMM d, HH:mm').format((weather.time)), style: TextStyle(
+                    Text(DateFormat('EEE, MMM d, HH:mm').format((widget.weather.time)), style: TextStyle(
                         color: Colors.white, fontSize: 15)),
                   ],
                 ),
                 SizedBox(height: 10,),
                 Row(
                   children: [
-                    Image.network("http://openweathermap.org/img/wn/${weather.icon}@2x.png", scale: 1.8,),
-                    Text("${weather.temp}℃", style: TextStyle(color: Colors.white,
+                    Image.network("http://openweathermap.org/img/wn/${widget.weather.icon}@2x.png", scale: 1.8,),
+                    Text("${widget.weather.temp}℃", style: TextStyle(color: Colors.white,
                         fontSize: 45,
                         fontWeight: FontWeight.w600),),
                   ],
-                )
+                ),
               ],
             ),
           ),
-          SizedBox(height: 10,),
-          HourlyWeather(listDataWeather: this.hourlyWeather),
+         // HourlyWeather(listDataWeather: this.widget.hourlyWeather),
           SizedBox(height: 20,),
-          DaysWeather(listDataWeather: this.hourlyWeather),
+          DaysWeather(listDataWeather: this.widget.hourlyWeather),
         ]),
       ),
     );
