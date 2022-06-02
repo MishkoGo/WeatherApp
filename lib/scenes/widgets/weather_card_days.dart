@@ -10,11 +10,11 @@ class WeatherCardDays extends StatelessWidget {
   final int humidity;
 
   const WeatherCardDays({
-    this.humidity,
+     this.humidity,
     this.wind,
     this.title,
-    this.temperature,
-    this.iconCode,
+     this.temperature,
+     this.iconCode,
     this.temperatureFontSize = 33,
     this.iconScale = 1.9}) : super();
 

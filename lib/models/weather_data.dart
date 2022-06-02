@@ -1,4 +1,6 @@
-class WeatherData {
+import 'package:flutter/material.dart';
+
+class WeatherData extends ChangeNotifier{
   final String icon;
   final String name;
   final double temp;
@@ -8,13 +10,13 @@ class WeatherData {
   final int humidity;
 
   WeatherData({
-     this.humidity,
+      this.humidity,
      this.wind,
-     this.temp,
-     this.icon,
-     this.name,
-     this.time,
-     this.sys,
+      this.temp,
+      this.icon,
+      this.name,
+      this.time,
+      this.sys,
   });
 
   factory WeatherData.fromJson(Map<String, dynamic> json) {

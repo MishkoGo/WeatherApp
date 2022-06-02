@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class MySearchDelegate extends SearchDelegate {
   String selectedResult;
-  final Function callback;
+  Function callback;
 
   MySearchDelegate(this.callback);
 
@@ -51,8 +51,7 @@ class MySearchDelegate extends SearchDelegate {
       color: Color.fromRGBO(41, 50, 81, 1),
       child: ListView.builder(
         itemCount: searchResults.length,
-        itemBuilder: (context, index) {
-        },
+        itemBuilder: (context, index) {},
       ),
     );
   }

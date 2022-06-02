@@ -16,7 +16,7 @@ class WeatherLoadSuccess extends WeatherState {
   final List<WeatherData> hourlyWeather;
 
   const WeatherLoadSuccess(
-      { @required this.weather, @required this.hourlyWeather});
+      { this.weather,  this.hourlyWeather});
 
   @override
   List<Object> get props => [weather, hourlyWeather];

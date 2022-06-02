@@ -1,6 +1,4 @@
-import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../core/repository/weather_repository.dart';
 import '../../models/weather_data.dart';
@@ -9,30 +7,21 @@ part 'weather_state.dart';
 
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   WeatherBloc() : super(WeatherLoadingState()) {
-    add(WeatherCurrentPositionRequested());
+    on<WeatherRequested>(_newWeatherRequested);
+    on<WeatherCurrentPositionRequested>(_newWeatherCurrentPositionRequested);
   }
 
-  @override
-  Stream<WeatherState> mapEventToState(WeatherEvent event) async* {
-    if (event is WeatherRequested) {
-      yield* _newWeatherRequested(event);
-    }
-    if (event is WeatherCurrentPositionRequested) {
-      yield* _newWeatherCurrentPositionRequested();
-    }
-  }
-
-  Stream<WeatherState> _newWeatherRequested(WeatherRequested event) async* {
+   void _newWeatherRequested(WeatherRequested event, Emitter<WeatherState> emit) async {
       final WeatherData weather = await WeatherService.fetchCurrentWeather(
           query: event.city, lon: event.lon, lat: event.lat);
       final List<WeatherData> hourlyWeather =
       await WeatherService.fetchHourlyWeather(
           query: event.city, lon: event.lon, lat: event.lat);
-      yield WeatherLoadSuccess(weather: weather, hourlyWeather: hourlyWeather);
+      emit(WeatherLoadSuccess(weather: weather, hourlyWeather: hourlyWeather));
   }
 
-  //
-  Stream<WeatherState> _newWeatherCurrentPositionRequested() async* {
+
+  void _newWeatherCurrentPositionRequested(WeatherCurrentPositionRequested event, Emitter<WeatherState> emit) async {
     LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.whileInUse ||
         permission == LocationPermission.always) {
@@ -51,7 +40,6 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       }
     } else {
       await Geolocator.requestPermission();
-      add(WeatherCurrentPositionRequested());
     }
   }
 }

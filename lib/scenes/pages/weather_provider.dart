@@ -9,7 +9,7 @@ class WeatherProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WeatherBloc(),
+      create: (context) => WeatherBloc()..add(WeatherCurrentPositionRequested()),
       child: WeatherPage(),
     );
   }

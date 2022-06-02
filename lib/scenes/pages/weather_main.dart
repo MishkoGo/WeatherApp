@@ -9,7 +9,7 @@ class MainScreenWrapper extends StatefulWidget {
   final List<WeatherData> hourlyWeather;
 
   const MainScreenWrapper({
-     this.weather,
+      this.weather,
      this.hourlyWeather})
       : super();
   @override
