@@ -28,31 +28,31 @@ class MySearchDelegate extends SearchDelegate {
     );
   }
 
-  @override
   Widget buildResults(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text(selectedResult),
-      ),
-    );
+    if(query == "") {
+      return Container(
+        child: Center(
+          child: Text(selectedResult),
+        ),
+      );
+    }
+    else
+      {
+        
+      }
   }
 
   @override
   void showResults(BuildContext context) {
-    selectedResult = query;
-    callback(query);
-    close(context, query);
+      selectedResult = query;
+      callback(query);
+      close(context, query);
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<String> searchResults = ["", query].where((element) => element.contains(query)).toList();
-    return Container(
+     return Container(
       color: Color.fromRGBO(41, 50, 81, 1),
-      child: ListView.builder(
-        itemCount: searchResults.length,
-        itemBuilder: (context, index) {},
-      ),
-    );
+     );
   }
 }

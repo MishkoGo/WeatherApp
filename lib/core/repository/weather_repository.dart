@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import '../../models/weather_data.dart';
 
@@ -14,7 +13,8 @@ class WeatherService {
     if (response.statusCode == 200) {
       return WeatherData.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Failed to load weather');
+       Exception('Failed to load weather');
+       print("Rfgtw");
     }
   }
   static Future<List<WeatherData>> fetchHourlyWeather({query, String lat = "", String lon =""}) async {

@@ -9,7 +9,7 @@ class WeatherCardDays extends StatelessWidget {
   final int wind;
   final int humidity;
 
-  const WeatherCardDays({
+  WeatherCardDays({
      this.humidity,
     this.wind,
     this.title,

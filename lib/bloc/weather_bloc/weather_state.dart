@@ -16,8 +16,17 @@ class WeatherLoadSuccess extends WeatherState {
   final List<WeatherData> hourlyWeather;
 
   const WeatherLoadSuccess(
-      { this.weather,  this.hourlyWeather});
+      { @required this.weather,  this.hourlyWeather}) : assert(weather != null);
 
   @override
   List<Object> get props => [weather, hourlyWeather];
+}
+class WeatherLoadFailure extends WeatherState {
+  void color(){
+    Container(
+      height: 400,
+      width: 100,
+      color: Colors.white,
+    );
+  }
 }

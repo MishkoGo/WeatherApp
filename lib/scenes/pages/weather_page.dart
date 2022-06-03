@@ -12,7 +12,6 @@ class WeatherPage extends StatefulWidget {
 }
 
 class _WeatherPageState extends State<WeatherPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +44,38 @@ class _WeatherPageState extends State<WeatherPage> {
                 ),
               );
           }
-          return const Center(
+          if (state is WeatherLoadFailure){
+            return Container(
+              alignment: Alignment.center,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Вы ввели город, которого нет", style: TextStyle(color: Colors.white),),
+                    Text("Попробуйте снова", style: TextStyle(color: Colors.white)),
+                    SizedBox(
+                      width: 40,
+                      child: TextButton(
+                        child: Row(
+                          children: [
+                            Icon(Icons.search, color: Colors.white,),
+                          ]
+                        ),
+                        onPressed: () {
+                          showSearch(
+                              context: context,
+                              delegate: MySearchDelegate((query) {
+                                BlocProvider.of<WeatherBloc>(context).add(WeatherRequested(city: query));
+                              }));
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+          return Center(
                child: CircularProgressIndicator(),
             );
          },

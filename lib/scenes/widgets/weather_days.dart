@@ -22,13 +22,13 @@ class DaysWeather extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
         child: ListView.builder(
             scrollDirection: Axis.vertical,
-            itemCount: 9,
+            itemCount: listDataWeather.length,
             itemBuilder: (context, i) {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: WeatherCardDays(
                   title:
-                  '${DateFormat('EEE').format((listDataWeather[i].time))}:\n${listDataWeather[i].time.hour}:${listDataWeather[i].time.minute}0',
+                  DateFormat('E, ha').format((listDataWeather[i].time)),
                   wind: listDataWeather[i].wind.toInt(),
                   humidity: listDataWeather[i].humidity.toInt(),
                   temperature: listDataWeather[i].temp.toInt(),

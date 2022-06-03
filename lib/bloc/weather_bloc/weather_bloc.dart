@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../core/repository/weather_repository.dart';
 import '../../models/weather_data.dart';
@@ -12,12 +13,19 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   }
 
    void _newWeatherRequested(WeatherRequested event, Emitter<WeatherState> emit) async {
-      final WeatherData weather = await WeatherService.fetchCurrentWeather(
-          query: event.city, lon: event.lon, lat: event.lat);
-      final List<WeatherData> hourlyWeather =
-      await WeatherService.fetchHourlyWeather(
-          query: event.city, lon: event.lon, lat: event.lat);
-      emit(WeatherLoadSuccess(weather: weather, hourlyWeather: hourlyWeather));
+      try {
+        final WeatherData weather = await WeatherService.fetchCurrentWeather(
+            query: event.city, lon: event.lon, lat: event.lat);
+        final List<WeatherData> hourlyWeather =
+        await WeatherService.fetchHourlyWeather(
+            query: event.city, lon: event.lon, lat: event.lat);
+        emit(
+            WeatherLoadSuccess(weather: weather, hourlyWeather: hourlyWeather));
+      }
+      catch(_){
+        emit(WeatherLoadFailure());
+        print("nuul");
+      }
   }
 
 
@@ -30,8 +38,8 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         add(WeatherRequested(
             lat: lastKnownPosition.latitude.toString(),
             lon: lastKnownPosition.longitude.toString()));
-
-      } else {
+       }
+        else {
         Position position =
         await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
         add(WeatherRequested(

@@ -17,8 +17,8 @@ class WeatherRequested extends WeatherEvent {
   final String lon;
 
   const WeatherRequested({this.city = "", this.lat = "", this.lon = ""})
-      : super();
+      : assert(city != null);
 
   @override
-  List<Object> get props => [city, lat, lon];
+  List<Object> get props => [city];
 }
