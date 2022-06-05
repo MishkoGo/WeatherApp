@@ -8,10 +8,12 @@ class WeatherData extends ChangeNotifier{
   final String sys;
   final double wind;
   final int humidity;
+  final int clouds;
 
   WeatherData({
+      this.clouds,
       this.humidity,
-     this.wind,
+      this.wind,
       this.temp,
       this.icon,
       this.name,
@@ -28,6 +30,7 @@ class WeatherData extends ChangeNotifier{
       sys: json['sys']['country'],
       wind: json['wind']['speed'].toDouble(),
       humidity: json['main']['humidity'],
+      clouds: json['clouds']['all'],
     );
   }
 }

@@ -36,10 +36,6 @@ class MySearchDelegate extends SearchDelegate {
         ),
       );
     }
-    else
-      {
-        
-      }
   }
 
   @override
