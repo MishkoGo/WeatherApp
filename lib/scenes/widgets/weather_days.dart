@@ -12,8 +12,7 @@ class DaysWeather extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 350,
-      height: 300.0,
+      height: 410.0,
       decoration: BoxDecoration(
         color: Color.fromRGBO(56, 66, 102, 1),
         borderRadius: BorderRadius.circular(10),

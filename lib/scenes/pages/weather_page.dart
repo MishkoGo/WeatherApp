@@ -51,8 +51,8 @@ class _WeatherPageState extends State<WeatherPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Вы ввели город, которого нет", style: TextStyle(color: Colors.white),),
-                    Text("Попробуйте снова", style: TextStyle(color: Colors.white)),
+                    Text("You entered a city that does not exist", style: TextStyle(color: Colors.white),),
+                    Text("Try again!", style: TextStyle(color: Colors.white)),
                     SizedBox(
                       width: 40,
                       child: TextButton(
